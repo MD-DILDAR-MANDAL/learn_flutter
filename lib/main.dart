@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hello_flutter/immutable_widget.dart';
 import './basic_screen.dart';
 void main() => runApp(const StaticApp());
 
