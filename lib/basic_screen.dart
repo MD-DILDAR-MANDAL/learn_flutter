@@ -10,6 +10,7 @@ class BasicScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar( 
          backgroundColor: Colors.indigo,
+         foregroundColor: Colors.white,
         title: Text('Welcome to Flutter'),
         actions: <Widget>[
           Padding(
