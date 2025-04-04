@@ -9,17 +9,24 @@ class FlexScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flexible & Expanded'),
+        centerTitle: true,
         foregroundColor: Colors.white,
         backgroundColor: Colors.blue,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ..._header(context,'Expanded'),
-          const DemoExpanded(),
-          ..._header(context,'Flexible'),
-          const DemoFlexible(),
-        ],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ..._header(context,'Expanded'),
+            const DemoExpanded(),
+            ..._header(context,'Flexible'),
+            const DemoFlexible(),
+            const Expanded(
+              child:Spacer(),
+            ),
+            const DemoFooter()
+          ],
+        ),
       ),
     );
   }
@@ -86,6 +93,13 @@ class DemoFlexible extends StatelessWidget {
             flex: 1,
             child: LabeledContainer(
               color: Colors.deepOrange,
+              text: '25%',
+            ),
+          ),
+          Flexible(
+            flex: 2,
+            child: LabeledContainer(
+              color: Colors.blue,
               text: '50%',
             ),
           )
