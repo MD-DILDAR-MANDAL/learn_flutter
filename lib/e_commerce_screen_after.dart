@@ -68,6 +68,7 @@ class ECommerceScreen extends StatelessWidget {
 
   AppBar _buildAppBar() {
     return AppBar(
+      centerTitle: true,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))),
       leading: Padding(
@@ -75,7 +76,6 @@ class ECommerceScreen extends StatelessWidget {
         child: Icon(Icons.home),
       ),
       title: Text('Let\'s go shopping!'),
-      elevation: 0,
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.all(20.0),
