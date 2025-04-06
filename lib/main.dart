@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './deep_tree.dart';
+import 'package:learn_flutter/e_commerce_screen_before.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const DeepTree(),
+      home: ECommerceScreen(),
       
     );
   }
