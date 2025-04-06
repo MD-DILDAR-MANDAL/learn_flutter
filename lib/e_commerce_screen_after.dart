@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ECommerceScreen extends StatelessWidget {
+  const ECommerceScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
       appBar: _buildAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -26,7 +27,7 @@ class ECommerceScreen extends StatelessWidget {
   Container _buildProductTile(BuildContext context) {
     return Container(
             height: 200,
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             child: Row(
               children: <Widget>[
                 Image.asset(
@@ -58,16 +59,15 @@ class ECommerceScreen extends StatelessWidget {
   Row _buildToggleBar() {
     return Row(
             children: <Widget>[
-              _barOption(text: 'Recommended',color: Colors.white,),
-              _barOption(text: 'Formal Wear', color: Colors.white54),
-              _barOption(text: 'Casual Wear', color: Colors.white54),
+              _barOption(text: 'Recommended',color: Colors.black,),
+              _barOption(text: 'Formal Wear', color: Colors.black54),
+              _barOption(text: 'Casual Wear', color: Colors.black54),
             ],
           );
   }
 
   AppBar _buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.purpleAccent,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(30))),
       leading: Padding(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/e_commerce_screen_before.dart';
+import 'package:learn_flutter/e_commerce_screen_after.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +11,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        brightness: Brightness.light,
+        primaryColor: Colors.green,
+        primarySwatch: Colors.green,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.green,
+          elevation: 10,
+          titleTextStyle: TextStyle(
+              fontFamily: 'LeckerliOne',
+              fontSize: 24,
+            
+            ),
+          ),
       ),
       home: ECommerceScreen(),
-      
     );
   }
 }
