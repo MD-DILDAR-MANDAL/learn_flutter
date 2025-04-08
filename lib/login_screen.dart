@@ -21,8 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
         title: const Text('Login'),
       ),
       body: Center(
-        child: loggedIn ? _buildSuccess():
-        _buildLoginForm(),
+        child: loggedIn ? _buildSuccess() : _buildLoginForm(),
       ),
     );
   }
@@ -88,12 +87,11 @@ class _LoginScreenState extends State<LoginScreen> {
   
   void _validate(){
     final form = _formKey.currentState;
-    if(form?.validate()??false){
-      return ;
-    }
+    if(form!=null && form.validate()){
     setState(() {
       loggedIn = true;
       name = _nameController.text;
     });
+    }
   }
 }
