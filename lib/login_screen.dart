@@ -10,6 +10,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool loggedIn = false;
   String name = '';
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,4 +37,63 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
   
+  @override
+  void dispose(){
+    _emailController.dispose();
+    _nameController.dispose();
+    super.dispose();
+  }
+
+
+  Widget _buildLoginForm(){
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding:const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextFormField(
+              controller: _nameController,
+              decoration: const InputDecoration(labelText: 'Runner'),
+              validator: (text)=>text!.isEmpty?'Enter the runner\'s name.':null,
+            ),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(labelText: 'Email'),
+              validator: (text){
+                if(text!.isEmpty){
+                  return 'Enter the runner\'s email.';
+                }
+                final regex = RegExp('[^@]+@[^.]+..+');
+                if(!regex.hasMatch(text)){
+                  return 'Enter a valid email';
+                }
+                return null;
+              },
+              ),
+              
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _validate,
+              child: const Text('Continue'),
+            ),
+
+          ],
+        ), 
+      ),
+    );
+  }
+  
+  void _validate(){
+    final form = _formKey.currentState;
+    if(form?.validate()??false){
+      return ;
+    }
+    setState(() {
+      loggedIn = true;
+      name = _nameController.text;
+    });
+  }
 }

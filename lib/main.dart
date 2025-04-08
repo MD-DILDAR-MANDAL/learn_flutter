@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './stopwatch.dart';
-
+import './login_screen.dart';
 void main() =>runApp(const StopWatchApp());
 
 class StopWatchApp extends StatelessWidget {
