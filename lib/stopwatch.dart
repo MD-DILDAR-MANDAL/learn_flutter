@@ -21,7 +21,6 @@ class _StopWatchState extends State<StopWatch>{
   final scrollController = ScrollController();
 
   @override
-
   void _onTick(Timer time){
     if(mounted){
       setState((){
@@ -29,6 +28,7 @@ class _StopWatchState extends State<StopWatch>{
       });
     } 
   }
+
   Widget _buildLapDisplay(){
     return Scrollbar(
       controller: scrollController,
@@ -47,6 +47,7 @@ class _StopWatchState extends State<StopWatch>{
       ),
     );
   }
+
   @override
   void dispose(){
     timer.cancel();
@@ -67,18 +68,37 @@ class _StopWatchState extends State<StopWatch>{
       laps.clear();
     });
   }
-  void _stopTimer(){
+  void _stopTimer(BuildContext context){
     timer.cancel();
     setState(() {
       isTicking = false;
     });
 
     final totalRuntime = laps.fold(milliseconds,(total,lap) => total+lap);
-    final alert = PlatformAlert(
-      title: 'Run completed',
-      message: 'Total Run Time is ${_secondsText(totalRuntime)}.'
+    final controller = showBottomSheet(context: context, builder: _buildRunCompleteSheet);
+    Future.delayed(const Duration(seconds: 5)).then((_){
+      controller.close();
+    });
+  }
+
+  Widget _buildRunCompleteSheet(BuildContext context){
+    final totalRuntime = laps.fold(milliseconds,(total,lap)=> total+lap);
+    final textTheme = Theme.of(context).textTheme;
+    return SafeArea(
+      child: Container(
+        color:Theme.of(context).cardColor,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30.0),
+          child:Column(mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Run Finished',style:textTheme.headlineSmall),
+            Text('Total Run Time is ${_secondsText(totalRuntime)}.')
+          ],
+          )
+        ),
+      ) ,
     );
-    alert.show(context);
   }
 
   void _lap(){
@@ -155,16 +175,18 @@ class _StopWatchState extends State<StopWatch>{
                 child: const Text('Lap'),
               ),
               const SizedBox(width: 20),
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                ),
-                onPressed:isTicking 
-                ? _stopTimer 
-                :null,
-                child: const Text('stop'),
-            ),
+              Builder(
+                builder: (context) {
+                  return TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    ),
+                    onPressed:isTicking ? () => _stopTimer(context): null,
+                    child: const Text('stop'),
+                  );
+                }
+              ),
           ],
         );
   }
